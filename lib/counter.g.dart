@@ -39,6 +39,16 @@ mixin _$Counter on _Counter, Store {
   }
 
   @override
+  dynamic decrement() {
+    final _$actionInfo = _$_CounterActionController.startAction();
+    try {
+      return super.decrement();
+    } finally {
+      _$_CounterActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string = 'value: ${value.toString()}';
     return '{$string}';

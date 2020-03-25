@@ -11,4 +11,9 @@ abstract class _Counter with Store {
   increment(){
     value++;
   }
+
+  @action
+  decrement(){
+    value--;
+  }
 }
