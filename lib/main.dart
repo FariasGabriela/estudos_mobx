@@ -1,6 +1,11 @@
-import 'package:estudos_mobx/counter.dart';
+
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
+
+import 'ListUsers.dart';
+import 'cadastro.dart';
+import 'user.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -23,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  final counter = Counter();
+  final user = User();
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -37,30 +42,45 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Row(
+      body: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FloatingActionButton(
-              onPressed: widget.counter.decrement,
-              tooltip: 'Increment',
-              child: Icon(Icons.chevron_left),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Nome',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: widget.user.setName,
             ),
-            SizedBox(width: 10),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Sobrenome',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: widget.user.setSobrenome,
+            ),
+            SizedBox(height: 10),
             Observer(
               builder: (_) => Text(
-                '${widget.counter.value}',
+                '${widget.user.nomeCompleto}',
                 style: Theme.of(context).textTheme.display1,
               ),
             ),
-            SizedBox(width: 10),
-            FloatingActionButton(
-              onPressed: widget.counter.increment,
-              tooltip: 'Increment',
-              child: Icon(Icons.chevron_right),
-            )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() =>
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ListUsers())
+          )
+        ),
+        tooltip: 'Button Teste',
+        child: const Icon(Icons.new_releases),
       ),
     );
   }
